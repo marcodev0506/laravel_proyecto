@@ -2,35 +2,20 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('home');
+use App\Http\Controllers\PageController;
+
+/**
+Route::get('/', [PageController::class, 'home'])->name('home');
+
+Route::get('blog', [PageController::class, 'blog'])->name('blog');
+
+Route::get('blog/{slug}', [PageController::class, 'post'])->name('post');
+*/
+
+Route::controller(PageController::class)->group(function () {     
+
+    Route::get('/',           'home')->name('home');     
+    Route::get('blog',        'blog')->name('blog'); 
+    Route::get('blog/{slug}', 'post')->name('post'); 
+
 });
-
-// Route::get('/', function () {
-//     return 'Bienvenido';
-// });
-
-
-// Route::get('blog', function () {
-//     return 'Estudios Nuevos';
-// });
-
-// Route::get('blog/{slug}', function ($slug) {
-//     return  $slug;
-// });
-
-// Route::get('buscar', function (Request $request) {
-//     return $request->all();
-// });
-
-Route::get('blog', function () {
-    $post=[
-        ['id'=>1,'title'=>'PHP', 'slug'=>'laravel'],
-        ['id'=>2,'title'=>'Python', 'slug'=>'django']
-
-    ];
-    return view('blog',['post'=>$post]);
- });
-
-
- 
